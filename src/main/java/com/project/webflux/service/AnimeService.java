@@ -1,9 +1,13 @@
 package com.project.webflux.service;
 
+import javax.validation.Valid;
+
 import com.project.webflux.domain.Anime;
 import com.project.webflux.repository.AnimeRepository;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
@@ -20,6 +24,22 @@ public class AnimeService {
   }
 
   public Mono<Anime> findById(int id) {
-    return animeRepository.findById(id);
+    return animeRepository.findById(id).switchIfEmpty(monoResponseStatusNotFoundException());
+  }
+
+  public Mono<Anime> save(Anime anime) {
+    return animeRepository.save(anime);
+  }
+
+  public <T> Mono<T> monoResponseStatusNotFoundException() {
+    return Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Anime not found"));
+  }
+
+  public Mono<Void> update(Anime anime) {
+    return findById(anime.getId()).flatMap(animeRepository::save).then();
+  }
+
+  public Mono<Void> delete(int id) {
+    return findById(id).flatMap(animeRepository::delete);
   }
 }
