@@ -1,12 +1,9 @@
 package com.project.webflux;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
-@SpringBootTest
+//@SpringBootTest
 class WebFluxApplicationTests {
 
-  @Test
+  // @Test
   void contextLoads() {
   }
 
