@@ -9,7 +9,3 @@ logging:
     org:
       springframework:
         r2dbc: TRACE
-
-server:
-  error:
-    include-stacktrace: on-param

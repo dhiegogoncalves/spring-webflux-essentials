@@ -18,9 +18,10 @@ public class SecurityConfig {
   @Bean
   public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity serverHttpSecurity) {
     return serverHttpSecurity.csrf().disable().authorizeExchange().pathMatchers(HttpMethod.POST, "/animes/**")
-        .hasRole("ADMIN").pathMatchers(HttpMethod.GET, "/animes/**").hasRole("USER")
-        .pathMatchers(HttpMethod.POST, "/users/**").permitAll().anyExchange().authenticated().and().formLogin().and()
-        .httpBasic().and().build();
+        .hasRole("ADMIN").pathMatchers(HttpMethod.PUT, "/animes/**").hasRole("ADMIN")
+        .pathMatchers(HttpMethod.DELETE, "/animes/**").hasRole("ADMIN").pathMatchers(HttpMethod.GET, "/animes/**")
+        .hasRole("USER").pathMatchers(HttpMethod.POST, "/users/**").permitAll().anyExchange().authenticated().and()
+        .formLogin().and().httpBasic().and().build();
   }
 
   @Bean
