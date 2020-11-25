@@ -1,0 +1,15 @@
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/postgres
+    username: root
+    password: root
+
+logging:
+  level:
+    org:
+      springframework:
+        r2dbc: TRACE
+
+server:
+  error:
+    include-stacktrace: on-param
