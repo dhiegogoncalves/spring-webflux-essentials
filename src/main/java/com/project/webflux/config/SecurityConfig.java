@@ -20,8 +20,9 @@ public class SecurityConfig {
     return serverHttpSecurity.csrf().disable().authorizeExchange().pathMatchers(HttpMethod.POST, "/animes/**")
         .hasRole("ADMIN").pathMatchers(HttpMethod.PUT, "/animes/**").hasRole("ADMIN")
         .pathMatchers(HttpMethod.DELETE, "/animes/**").hasRole("ADMIN").pathMatchers(HttpMethod.GET, "/animes/**")
-        .hasRole("USER").pathMatchers(HttpMethod.POST, "/users/**").permitAll().anyExchange().authenticated().and()
-        .formLogin().and().httpBasic().and().build();
+        .hasRole("USER").pathMatchers(HttpMethod.POST, "/users/**").permitAll()
+        .pathMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/webjars/**").permitAll().anyExchange()
+        .authenticated().and().formLogin().and().httpBasic().and().build();
   }
 
   @Bean
